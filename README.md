@@ -57,6 +57,36 @@ Scriptul trimite coordonate via OSC pe portul 8999 catre Max/MSP:
 
 ## Istoric
 
+**Etapa 1 - Script Draft Initial**
+- Implementare de baza MediaPipe pentru detectarea fetei
+- Comunicatie Python → Max/MSP
 
-## Link-uri
+**Etapa 2 - Dezvoltare Patch Max/MSP**
+- Crearea patch-ului `imeciss.maxpat`
 
+**Etapa 3 - Tentativa Implementare Nativa Max**
+- Am incercat implementarea trackingului folosind [acest exemplu cu jweb](https://github.com/lysdexic-audio/jweb-hands-landmarker)
+am incercat si sa folosesc exemplele din [acest repository](https://github.com/lysdexic-audio/jweb-facemesh)
+
+**Etapa 4 - Optimizari si Finalizare**
+- Implementare Eye Aspect Ratio (EAR) pentru detectare clipire
+- Adaugare sistem toggle pentru controlul prin ochi (0.75s)
+- Optimizare detectare închidere maini cu landmarks thumb/index
+- Implementare sistem backup pentru continuitate
+
+
+## Referinte
+
+### Hand Tracking & Gesture Detection
+- [Gesture Volume Control](https://github.com/pratham-bhatnagar/Gesture-Volume-Control) - Control volum prin distanta
+- [Hand Gesture Recognition with MLP](https://github.com/kinivi/hand-gesture-recognition-mediapipe) - Recunoastere gesturi maini
+- [Simple Hand Gesture Recognition](https://gist.github.com/TheJLifeX/74958cc59db477a91837244ff598ef4a) - Detectare gesturi simple
+
+### Eye Blink Detection & EAR
+- [Eye Blink Detection with EAR](https://github.com/Pushtogithub23/Eye-Blink-Detection-using-MediaPipe-and-OpenCV) - EAR calculation
+- [Advanced Gaze Tracker](https://github.com/alireza787b/Python-Gaze-Face-Tracker) - Tracking complet ochi
+
+### Documentatie Oficiala
+- [MediaPipe Solutions Guide](https://developers.google.com/mediapipe/solutions/guide) - Ghid oficial Google MediaPipe
+- [Hand Landmarks Detection](https://developers.google.com/mediapipe/solutions/vision/hand_landmarker) - Detectare landmarks maini
+- [Face Landmarks Detection](https://developers.google.com/mediapipe/solutions/vision/face_landmarker) - Detectare landmarks fata

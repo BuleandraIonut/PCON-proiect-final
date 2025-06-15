@@ -1,18 +1,23 @@
 # adapted from https://cs.anu.edu.au/courses/comp1720/resources/faq/#statement-of-originality
-
 name: Buleandra Ionut-Daniel
-
 declaration: >-
   I declare that everything I have submitted in this assignment is entirely my
   own work, with the following exceptions:
 
 code:
-  - comment:
-    url:
-    licence:
-
+  - comment: Detectarea gesturilor mainilor pentru controlul volumului audio folosind MediaPipe si OpenCV
+    url: https://github.com/pratham-bhatnagar/Gesture-Volume-Control
+    licence: MIT License
+  
+  - comment: Detectarea clipirilor ochilor folosind EAR
+    url: https://github.com/Pushtogithub23/Eye-Blink-Detection-using-MediaPipe-and-OpenCV
+    licence: MIT License
+  
+  - comment: Tracking pentru maine si fata si trimiterea de mesaje OSC
+    url: https://github.com/cansik/mediapipe-osc
+    licence: MIT License
 
 assets:
-  - comment:
-    url:
-    licence:
+  - comment: Documentatie officiala MediaPipe
+    url: https://developers.google.com/mediapipe/solutions/vision
+    licence: Apache License 2.0

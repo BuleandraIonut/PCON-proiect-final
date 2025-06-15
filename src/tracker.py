@@ -26,6 +26,15 @@ eye_toggle_state = 1
 eyes_closed_start_time = None
 TOGGLE_DURATION = 0.75
 
+"""""""""""""""""""""""
+    pts[1] ---- pts[2]   
+       |         |
+pts[0] v1       v2    pts[3]    
+       |         |    
+    pts[5] ---- pts[4]    
+     
+←----------h----------→ 
+"""""""""""""""""""""""
 def get_eye_ratio(landmarks, points):
    """Calculeaza Eye Aspect Ratio"""
    pts = [[landmarks[p].x, landmarks[p].y] for p in points]
@@ -62,6 +71,21 @@ def toggle_eye_detection(ear_value):
    
    return eye_toggle_state
 
+r"""
+    
+        4       8    12   16   20
+        \       |     |    |    |
+         3      7    11   15   19  
+          \     |     |    |    |
+           2    6    10   14   18
+            \   |     |    |    |
+             1  5     9   13   17
+              \ |    /|   /    /
+               \|   / |  /    /
+                    0 
+                
+"""
+
 def is_hand_closed(hand_landmarks):
    """Detectia inchiderii mainii"""
    if not hand_landmarks:
@@ -76,24 +100,24 @@ def is_hand_closed(hand_landmarks):
    return thumb_closed or index_closed
 
 # Configurare camera
-cap = cv2.VideoCapture(0)
-cap.set(cv2.CAP_PROP_FRAME_WIDTH, 480)
-cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 360)
-cap.set(cv2.CAP_PROP_FPS, 20)
-cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
+camera = cv2.VideoCapture(0)
+camera.set(cv2.CAP_PROP_FRAME_WIDTH, 480)
+camera.set(cv2.CAP_PROP_FRAME_HEIGHT, 360)
+camera.set(cv2.CAP_PROP_FPS, 20)
+camera.set(cv2.CAP_PROP_BUFFERSIZE, 1)
 
 def main_program():
    with mp_holistic.Holistic(
        min_detection_confidence=0.3,
        min_tracking_confidence=0.2,
-       model_complexity=2,
+       model_complexity=0,
        smooth_landmarks=True,
        refine_face_landmarks=True
    ) as holistic:
        
        try:
-           while cap.isOpened():
-               success, image = cap.read()
+           while camera.isOpened():
+               success, image = camera.read()
                if not success:
                    continue
 
@@ -127,7 +151,7 @@ def main_program():
                    global eyes_closed_start_time
                    eyes_closed_start_time = None
                
-               # Mana stanga (MediaPipe right = actual left)
+               # Mana stanga 
                if results.right_hand_landmarks:
                    wrist = results.right_hand_landmarks.landmark[0]
                    pos = [wrist.x, wrist.y, wrist.z]
@@ -143,7 +167,7 @@ def main_program():
                    osc.send_message("/manaStanga", last_values["manaStanga"])
                    osc.send_message("/manaStangaInchisa", last_values["manaStangaInchisa"])
                
-               # Mana dreapta (MediaPipe left = actual right)
+               # Mana dreapta
                if results.left_hand_landmarks:
                    wrist = results.left_hand_landmarks.landmark[0]
                    pos = [wrist.x, wrist.y, wrist.z]
@@ -162,7 +186,7 @@ def main_program():
        except KeyboardInterrupt:
            pass
        
-   cap.release()
+   camera.release()
 
 if __name__ == "__main__":
    main_program()
